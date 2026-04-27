@@ -1,0 +1,76 @@
+name: Deploy vellum-app to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  # Also rebuild when vellum-ds publishes a release (so component changes flow into the app).
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      # Sibling layout: $GITHUB_WORKSPACE/vellum-ds and $GITHUB_WORKSPACE/vellum-app.
+      # vellum-app's package.json declares "@seyo/vellum-ds": "file:../vellum-ds",
+      # so we clone the design system as a sibling and build its dist/ before npm-installing
+      # the app. This mirrors local development.
+      - name: Checkout vellum-ds
+        uses: actions/checkout@v4
+        with:
+          repository: Seyo/vellum-ds
+          path: vellum-ds
+      - name: Checkout vellum-app
+        uses: actions/checkout@v4
+        with:
+          path: vellum-app
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install vellum-ds
+        working-directory: vellum-ds
+        run: npm ci
+      - name: Build vellum-ds
+        working-directory: vellum-ds
+        run: npm run build
+
+      - name: Install vellum-app
+        working-directory: vellum-app
+        run: npm install
+      - name: Build vellum-app
+        working-directory: vellum-app
+        env:
+          # In CI, consume vellum-ds from its built dist/ (not source), so the app
+          # depends on the same artifact that other consumers would.
+          VITE_USE_DS_SOURCE: "0"
+        run: npm run build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: vellum-app/dist
+
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-22.04
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

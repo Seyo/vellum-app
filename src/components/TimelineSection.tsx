@@ -6,6 +6,7 @@ import {
 import { useI18n, useTimeline } from '@/lib/queries'
 import { t, pickLangValue } from '@/lib/i18n'
 import { wikiUrl } from '@/lib/wikiUrl'
+import { processDesc } from '@/lib/processDesc'
 import type { Lang } from '@/lib/types'
 
 interface TimelineSectionProps {
@@ -13,20 +14,6 @@ interface TimelineSectionProps {
 }
 
 const EVENT_TYPES = ['social', 'travel', 'invest', 'combat', 'death'] as const
-
-/**
- * Rewrite wiki links inside a description for the active language.
- *
- * The descriptions in timeline.json use relative `../Foo` style hrefs (so the
- * existing Quartz pages resolve them correctly). The React app needs absolute
- * URLs into the right Quartz wiki, so we map `href="../Foo"` to the wikiUrl
- * helper for the current lang.
- */
-function processDesc(html: string, lang: Lang): string {
-  return html.replace(/href="\.\.\/([^"]+)"/g, (_match, slug: string) => {
-    return `href="${wikiUrl(lang, slug)}"`
-  })
-}
 
 /**
  * Vertical timeline section. Sessions are reversed (most recent first), and

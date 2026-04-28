@@ -1,4 +1,4 @@
-import { Button, StatusCard } from '@seyo/vellum-ds'
+import { StatusCard } from '@seyo/vellum-ds'
 import { SnowOverlay } from './SnowOverlay'
 import { useI18n, useStatus } from '@/lib/queries'
 import { t } from '@/lib/i18n'
@@ -50,15 +50,15 @@ export function HeroSection({ lang }: HeroSectionProps) {
           </p>
 
           <div className="flex flex-wrap items-center gap-4">
-            <Button asChild>
-              <a href="#karta">{t(strings, 'hero_cta_map')}</a>
-            </Button>
-            <Button asChild variant="outline">
-              <a href="#wiki">{t(strings, 'hero_cta_wiki')}</a>
-            </Button>
-            <Button asChild variant="ghost">
-              <a href={`${WIKI_BASE_URL}/static/chat.html`}>{t(strings, 'hero_cta_chat')}</a>
-            </Button>
+            <a href="#karta" className="hero-btn hero-btn-primary">
+              {t(strings, 'hero_cta_map')}
+            </a>
+            <a href="#wiki" className="hero-btn hero-btn-ghost">
+              {t(strings, 'hero_cta_wiki')}
+            </a>
+            <a href={`${WIKI_BASE_URL}/static/chat.html`} className="hero-btn hero-btn-ghost">
+              {t(strings, 'hero_cta_chat')}
+            </a>
           </div>
         </div>
 

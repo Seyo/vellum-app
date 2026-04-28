@@ -44,6 +44,42 @@ html, body, #root {
 body {
   margin: 0;
   font-family: var(--font-body);
-  background: var(--color-background);
+  background-color: var(--color-background);
   color: var(--color-foreground);
+  /* Parchment texture — mirrors .parchment in frost-vellum.css */
+  background-image:
+    radial-gradient(ellipse at 12% 20%, rgba(176, 151, 112, 0.18) 0%, transparent 45%),
+    radial-gradient(ellipse at 85% 75%, rgba(160, 140, 100, 0.14) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(200, 185, 155, 0.08) 0%, transparent 70%),
+    radial-gradient(ellipse at 90% 10%, rgba(143, 181, 201, 0.22) 0%, transparent 35%),
+    radial-gradient(ellipse at 5%  95%, rgba(143, 181, 201, 0.18) 0%, transparent 40%),
+    repeating-linear-gradient(23deg,  transparent 0 2px, rgba(130, 110,  80, 0.025) 2px 3px, transparent 3px 7px),
+    repeating-linear-gradient(-47deg, transparent 0 3px, rgba(100, 120, 140, 0.020) 3px 4px, transparent 4px 9px);
+}
+
+/* Dark mode parchment texture */
+.dark body {
+  background-image:
+    radial-gradient(ellipse at 20% 30%, rgba( 70, 100, 130, 0.25) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 75%, rgba( 80, 100, 140, 0.20) 0%, transparent 60%),
+    radial-gradient(ellipse at 50% 10%, rgba(140, 197, 223, 0.08) 0%, transparent 50%),
+    repeating-linear-gradient(23deg, transparent 0 2px, rgba(140, 180, 210, 0.03) 2px 3px, transparent 3px 8px);
+}
+
+/* Edge vignette — mirrors .parchment-edge::after box-shadow in frost-vellum.css */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 200;
+  box-shadow:
+    inset 0 0 120px 10px rgba(60, 40, 10, 0.35),
+    inset 0 0 300px 40px rgba(90, 65, 30, 0.18);
+}
+
+.dark body::after {
+  box-shadow:
+    inset 0 0 140px 20px rgba(0, 0, 0, 0.65),
+    inset 0 0 320px 40px rgba(0, 0, 0, 0.40);
 }

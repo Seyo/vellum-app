@@ -1,0 +1,142 @@
+/* Hero-section visuals lifted from the existing Quartz landing's page.css/frost-vellum.css.
+   Variable names are translated from Frostmaiden's --ink/--vellum/--rime palette to
+   vellum-ds tokens (--color-foreground, --color-background, --color-secondary, etc.). */
+
+/* ── Snow particles (60 spans, randomized in JS, animated by CSS) ── */
+.snow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 5;
+}
+.snow span {
+  position: absolute;
+  top: -10px;
+  background: rgba(240, 248, 252, 0.85);
+  border-radius: 50%;
+  filter: blur(0.3px);
+  animation: snowfall linear infinite;
+}
+@keyframes snowfall {
+  0%   { transform: translate3d(0, -10px, 0) rotate(0deg); opacity: 0; }
+  10%  { opacity: 0.9; }
+  90%  { opacity: 0.7; }
+  100% { transform: translate3d(var(--drift, 20px), 110vh, 0) rotate(360deg); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .snow span { animation: none; opacity: 0; }
+}
+
+/* ── Hero map background (heavily filtered) ── */
+.hero-map-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+.hero-map-bg img {
+  position: absolute;
+  inset: -5%;
+  width: 110%;
+  height: 110%;
+  object-fit: cover;
+  filter: blur(1px) contrast(0.92) brightness(1.05) saturate(0.7);
+  opacity: 0.42;
+  mix-blend-mode: multiply;
+}
+.dark .hero-map-bg img {
+  filter: blur(1.4px) contrast(0.9) brightness(0.45) saturate(0.6);
+  opacity: 0.35;
+  mix-blend-mode: screen;
+}
+.hero-map-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 40%, transparent 0%, var(--color-background) 80%),
+    linear-gradient(to bottom, transparent 60%, var(--color-background) 100%);
+}
+
+/* ── Hero title display font (overrides Tailwind's default sans) ── */
+.hero-title {
+  font-family: var(--font-heading);
+  font-size: clamp(3.2rem, 7.5vw, 6.4rem);
+  line-height: 0.92;
+  letter-spacing: -0.005em;
+  color: var(--color-foreground);
+}
+.hero-title em {
+  font-style: italic;
+  color: var(--color-secondary);
+}
+
+/* ── Scroll cue (animated line + label at bottom of hero) ── */
+.scroll-cue {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.32em;
+  font-size: 0.72rem;
+  color: var(--color-muted-foreground);
+  z-index: 4;
+}
+.scroll-cue-line {
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(to bottom, var(--color-muted-foreground), transparent);
+  animation: scrollPulse 2.2s ease-in-out infinite;
+}
+@keyframes scrollPulse {
+  0%, 100% { transform: scaleY(0.4); transform-origin: top; opacity: 0.4; }
+  50%      { transform: scaleY(1); opacity: 1; }
+}
+
+/* ── Floating compass (fixed bottom-right, rotates with scroll) ── */
+.hero-compass {
+  position: fixed;
+  right: 28px;
+  bottom: 28px;
+  width: 72px;
+  height: 72px;
+  color: var(--color-muted-foreground);
+  opacity: 0.5;
+  transition: opacity 0.3s, transform 0.6s ease-out;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* ── Frost creep overlay (fixed, opacity tied to scroll progress) ── */
+.frost-creep {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 30;
+  mix-blend-mode: screen;
+  background-image:
+    radial-gradient(ellipse 40% 25% at 0% 0%,    rgba(199, 221, 232, 0.95), transparent 65%),
+    radial-gradient(ellipse 35% 22% at 100% 0%,  rgba(199, 221, 232, 0.90), transparent 65%),
+    radial-gradient(ellipse 40% 25% at 0% 100%,  rgba(199, 221, 232, 0.85), transparent 65%),
+    radial-gradient(ellipse 35% 22% at 100% 100%,rgba(199, 221, 232, 0.90), transparent 65%);
+}
+.dark .frost-creep {
+  background-image:
+    radial-gradient(ellipse 40% 25% at 0% 0%,    rgba(140, 197, 223, 0.55), transparent 65%),
+    radial-gradient(ellipse 35% 22% at 100% 0%,  rgba(140, 197, 223, 0.50), transparent 65%),
+    radial-gradient(ellipse 40% 25% at 0% 100%,  rgba(140, 197, 223, 0.50), transparent 65%),
+    radial-gradient(ellipse 35% 22% at 100% 100%,rgba(140, 197, 223, 0.55), transparent 65%);
+}
+
+/* ── Mobile: hide compass + scroll cue + map CTA (matches existing landing) ── */
+@media (max-width: 720px) {
+  .hero-compass,
+  .scroll-cue { display: none; }
+}

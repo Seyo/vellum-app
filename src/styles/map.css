@@ -1,0 +1,68 @@
+/* Map-section visuals lifted from the existing landing's page.css.
+   Frostmaiden tokens (--vellum-warm, --ink, --vellum-edge) translated to vellum-ds
+   tokens (--color-card, --color-foreground, --color-border). */
+
+.map-frame {
+  position: relative;
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  padding: 20px;
+  box-shadow:
+    0 40px 80px -40px rgba(0, 0, 0, 0.45),
+    inset 0 0 90px rgba(143, 181, 201, 0.12);
+}
+.dark .map-frame { border-color: rgba(140, 197, 223, 0.25); }
+
+.map-frame-inner { position: relative; overflow: hidden; }
+
+.map-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 6000 / 4215;
+  overflow: hidden;
+  background: var(--color-card);
+  user-select: none;
+}
+.map-wrap.can-pan { cursor: grab; }
+.map-wrap.panning { cursor: grabbing; }
+
+.map-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: saturate(0.75) contrast(0.98);
+}
+.dark .map-img { filter: saturate(0.5) contrast(0.85) brightness(0.65); }
+
+.map-tint {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at center, transparent 30%, rgba(199, 221, 232, 0.12) 100%),
+    linear-gradient(to bottom, rgba(30, 45, 65, 0.04), transparent 30%);
+}
+.dark .map-tint {
+  background:
+    radial-gradient(ellipse at center, transparent 30%, rgba(20, 30, 50, 0.4) 100%),
+    linear-gradient(to bottom, rgba(10, 15, 25, 0.3), transparent 40%);
+}
+
+.map-legend {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  margin-top: 20px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-muted-foreground);
+}
+
+@media (max-width: 720px) {
+  /* Match the existing landing's "hide map on small viewports" behavior */
+  .map-frame { display: none; }
+}

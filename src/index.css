@@ -4,6 +4,7 @@
 @import 'tailwindcss';
 @import '@seyo/vellum-ds/styles';
 @import './styles/hero.css';
+@import './styles/map.css';
 
 html, body, #root {
   min-height: 100vh;

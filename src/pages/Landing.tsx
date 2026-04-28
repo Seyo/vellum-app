@@ -4,12 +4,12 @@ import { Footer } from '@/components/Footer'
 import { HeroSection } from '@/components/HeroSection'
 import { FloatingCompass } from '@/components/FloatingCompass'
 import { FrostCreep } from '@/components/FrostCreep'
+import { MapSection } from '@/components/MapSection'
 import type { Lang } from '@/lib/types'
 
 /**
- * Landing page — Phase 3: real hero with map background, snow, scroll-driven
- * compass + frost overlay, and the StatusCard primitive from vellum-ds.
- * Map / party / wiki / timeline sections land in Phases 4–6.
+ * Landing page — Phase 4: hero + interactive map section.
+ * Party grid, wiki sections, and timeline land in Phases 5–6.
  */
 export function Landing() {
   const { lang } = useParams({ from: '/$lang/' }) as { lang: Lang }
@@ -20,15 +20,16 @@ export function Landing() {
       <FloatingCompass />
       <Topbar lang={lang} />
       <HeroSection lang={lang} />
+      <MapSection lang={lang} />
 
       <main className="mx-auto max-w-4xl px-6 py-16 md:px-14">
         <div className="rounded border border-[color:var(--color-border)] bg-[color:var(--color-card)] p-6 opacity-60">
           <div className="text-xs uppercase tracking-widest">
-            Phase 3 — hero ✓
+            Phase 4 — map ✓
           </div>
           <p className="mt-2 text-sm">
-            Hero, status card, snow particles, scroll-driven compass &amp; frost overlay
-            in place. Map canvas, party grid, wiki sections, and timeline land in Phases 4–6.
+            Interactive map with pan/zoom, pinned tooltips, and edge-flip positioning.
+            Party grid, wiki sections, and timeline land in Phases 5–6.
           </p>
         </div>
       </main>

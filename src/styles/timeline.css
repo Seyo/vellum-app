@@ -1,0 +1,19 @@
+/* Vertical timeline guide line. The vellum-ds TimelineSessionHeader and
+   TimelineEventCard primitives draw their own dividers/dots; we just need
+   the long centered vertical line behind the dots. */
+
+.timeline-rail::before {
+  content: '';
+  position: absolute;
+  left: 36px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--color-border) 4%,
+    var(--color-border) 96%,
+    transparent
+  );
+}

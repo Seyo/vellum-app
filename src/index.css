@@ -5,6 +5,7 @@
 @import '@seyo/vellum-ds/styles';
 @import './styles/hero.css';
 @import './styles/map.css';
+@import './styles/timeline.css';
 
 html, body, #root {
   min-height: 100vh;

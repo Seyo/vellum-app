@@ -7,11 +7,11 @@ import { FrostCreep } from '@/components/FrostCreep'
 import { MapSection } from '@/components/MapSection'
 import { PartySection } from '@/components/PartySection'
 import { WikiSectionsSection } from '@/components/WikiSectionsSection'
+import { TimelineSection } from '@/components/TimelineSection'
 import type { Lang } from '@/lib/types'
 
 /**
- * Landing page — Phase 5: hero + map + party + wiki sections.
- * Timeline lands in Phase 6.
+ * Landing page — Phase 6: full landing parity (hero + map + party + wiki + timeline).
  */
 export function Landing() {
   const { lang } = useParams({ from: '/$lang/' }) as { lang: Lang }
@@ -25,15 +25,7 @@ export function Landing() {
       <MapSection lang={lang} />
       <PartySection lang={lang} />
       <WikiSectionsSection lang={lang} />
-
-      <main className="mx-auto max-w-4xl px-6 py-16 md:px-14">
-        <div className="rounded border border-[color:var(--color-border)] bg-[color:var(--color-card)] p-6 opacity-60">
-          <div className="text-xs uppercase tracking-widest">
-            Phase 5 — party + wiki ✓
-          </div>
-          <p className="mt-2 text-sm">Timeline section lands in Phase 6.</p>
-        </div>
-      </main>
+      <TimelineSection lang={lang} />
 
       <Footer lang={lang} />
     </div>

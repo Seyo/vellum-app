@@ -48,6 +48,9 @@ jobs:
       - name: Install vellum-app
         working-directory: vellum-app
         run: npm install
+      - name: Test vellum-app
+        working-directory: vellum-app
+        run: npm test
       - name: Build vellum-app
         working-directory: vellum-app
         env:

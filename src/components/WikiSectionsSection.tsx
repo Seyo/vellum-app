@@ -27,7 +27,7 @@ export function WikiSectionsSection({ lang }: WikiSectionsSectionProps) {
             <div className="font-[family-name:var(--font-mono)] text-[0.72rem] uppercase tracking-[0.32em] text-muted-foreground">
               {t(strings, 'wiki_chapter')}
             </div>
-            <h2 className="mt-2 font-[family-name:var(--font-heading)] text-4xl leading-none md:text-5xl">
+            <h2 className="section-h2">
               {t(strings, 'wiki_heading')}
             </h2>
           </div>

@@ -21,7 +21,7 @@ export function Footer({ lang }: FooterProps) {
   const variantKey = theme === 'dark' ? 'footer_night' : 'footer_day'
 
   return (
-    <footer className="mt-24 flex flex-wrap items-center justify-between gap-3 border-t border-[color:var(--color-border)] px-6 py-6 text-xs uppercase tracking-widest opacity-70 md:px-14">
+    <footer className="mt-16 flex flex-wrap items-center justify-between gap-6 border-t border-[color:var(--color-border)] px-6 pb-10 pt-14 font-[family-name:var(--font-mono)] text-[0.72rem] uppercase tracking-[0.22em] text-muted-foreground md:px-14">
       <span>Frostmaiden · 2026</span>
       <span>{t(strings, variantKey)}</span>
       <a

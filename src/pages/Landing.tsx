@@ -23,8 +23,11 @@ export function Landing() {
       <Topbar lang={lang} />
       <HeroSection lang={lang} />
       <MapSection lang={lang} />
+      <div className="rule-ornament" aria-hidden="true"><span className="glyph">✦</span></div>
       <PartySection lang={lang} />
+      <div className="rule-ornament" aria-hidden="true"><span className="glyph">❋</span></div>
       <WikiSectionsSection lang={lang} />
+      <div className="rule-ornament" aria-hidden="true"><span className="glyph">✧</span></div>
       <TimelineSection lang={lang} />
 
       <Footer lang={lang} />

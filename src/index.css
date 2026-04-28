@@ -7,6 +7,36 @@
 @import './styles/map.css';
 @import './styles/timeline.css';
 
+/* Section h2 — responsive clamp matches the original landing's section-head-block h2 */
+.section-h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  line-height: 1;
+  margin-top: 0.4em;
+}
+
+/* Ornamental dividers between sections — mirrors .rule-ornament in frost-vellum.css */
+.rule-ornament {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 1.5rem;
+  color: var(--color-muted-foreground);
+  opacity: 0.55;
+}
+.rule-ornament::before,
+.rule-ornament::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, currentColor, transparent);
+}
+.rule-ornament .glyph {
+  font-family: var(--font-heading);
+  font-size: 1.3em;
+  opacity: 0.7;
+}
+
 html, body, #root {
   min-height: 100vh;
 }

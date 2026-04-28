@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useParams } from '@tanstack/react-router'
 import { Topbar } from '@/components/Topbar'
 import { Footer } from '@/components/Footer'
@@ -10,11 +11,12 @@ import { WikiSectionsSection } from '@/components/WikiSectionsSection'
 import { TimelineSection } from '@/components/TimelineSection'
 import type { Lang } from '@/lib/types'
 
-/**
- * Landing page — Phase 6: full landing parity (hero + map + party + wiki + timeline).
- */
 export function Landing() {
   const { lang } = useParams({ from: '/$lang/' }) as { lang: Lang }
+
+  useEffect(() => {
+    document.documentElement.lang = lang === 'en' ? 'en' : 'sv'
+  }, [lang])
 
   return (
     <div className="relative">

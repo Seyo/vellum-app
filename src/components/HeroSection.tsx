@@ -33,7 +33,7 @@ export function HeroSection({ lang }: HeroSectionProps) {
       </div>
       <SnowOverlay />
 
-      <div className="relative z-[2] mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-14 px-6 md:px-14 lg:grid-cols-[1.2fr_0.9fr]">
+      <div className="hero-grid relative z-[2] mx-auto w-full max-w-6xl px-6 md:px-14">
         <div>
           <div className="mb-6 flex items-center gap-3.5 font-[family-name:var(--font-mono)] text-[0.72rem] uppercase tracking-[0.32em] text-muted-foreground">
             <span className="h-px w-10 bg-muted-foreground/60" aria-hidden="true" />

@@ -1,5 +1,4 @@
 import { useLocation, useNavigate } from '@tanstack/react-router'
-import { Button } from '@seyo/vellum-ds'
 import { useTheme } from '@/lib/theme'
 import { useI18n } from '@/lib/queries'
 import { t } from '@/lib/i18n'
@@ -10,14 +9,6 @@ interface TopbarProps {
   lang: Lang
 }
 
-/**
- * Top navigation bar — brand + section anchors + theme/lang toggles.
- * Mirrors the existing Quartz landing's topbar but driven by router state.
- *
- * In-page anchors (#karta, #parti, #wiki, #tidslinje) target sections that
- * are stubs today and become real in Phases 3–6. External nav (sessions, chat)
- * still points at the Quartz pages until those are ported.
- */
 export function Topbar({ lang }: TopbarProps) {
   const navigate = useNavigate()
   const location = useLocation()
@@ -28,81 +19,48 @@ export function Topbar({ lang }: TopbarProps) {
   const otherLang: Lang = lang === 'sv' ? 'en' : 'sv'
 
   const handleLangToggle = () => {
-    // Preserve sub-path under the lang prefix (e.g. /sv/map → /en/map).
     const newPath = location.pathname.replace(/^\/(sv|en)/, `/${otherLang}`)
     navigate({ to: newPath })
   }
 
   return (
-    <div className="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-6 py-5 md:px-14">
+    <div className="topbar">
       <a
         href={`/${lang}`}
-        className="flex items-center gap-3 no-underline"
+        className="brand"
         onClick={(e) => {
           e.preventDefault()
           navigate({ to: '/$lang', params: { lang } })
         }}
       >
-        <span className="text-2xl" aria-hidden="true">❄</span>
-        <span className="font-[family-name:var(--font-heading)] text-sm tracking-wider uppercase">
-          {t(strings, 'site_title')}
-        </span>
+        <div className="brand-mark" aria-hidden="true">❄</div>
+        <span>{t(strings, 'site_title')}</span>
       </a>
 
-      <nav className="flex items-center gap-1 md:gap-3">
-        <a
-          href="#karta"
-          className="hidden md:inline-block px-2 py-1 text-xs uppercase tracking-widest opacity-70 hover:opacity-100 no-underline"
-        >
-          {t(strings, 'nav_map')}
-        </a>
-        <a
-          href="#parti"
-          className="hidden md:inline-block px-2 py-1 text-xs uppercase tracking-widest opacity-70 hover:opacity-100 no-underline"
-        >
-          {t(strings, 'nav_party')}
-        </a>
-        <a
-          href="#wiki"
-          className="hidden md:inline-block px-2 py-1 text-xs uppercase tracking-widest opacity-70 hover:opacity-100 no-underline"
-        >
-          {t(strings, 'nav_wiki')}
-        </a>
-        <a
-          href="#tidslinje"
-          className="hidden md:inline-block px-2 py-1 text-xs uppercase tracking-widest opacity-70 hover:opacity-100 no-underline"
-        >
-          {t(strings, 'nav_timeline')}
-        </a>
-        <a
-          href={wikiUrl(lang, 'Sessions')}
-          className="hidden md:inline-block px-2 py-1 text-xs uppercase tracking-widest opacity-70 hover:opacity-100 no-underline"
-        >
-          {t(strings, 'nav_sessions')}
-        </a>
-        <a
-          href={staticPageUrl(lang, 'chat.html')}
-          className="hidden md:inline-block px-2 py-1 text-xs uppercase tracking-widest opacity-70 hover:opacity-100 no-underline"
-        >
-          {t(strings, 'nav_chat')}
-        </a>
+      <nav className="topnav">
+        <a href="#karta">{t(strings, 'nav_map')}</a>
+        <a href="#parti">{t(strings, 'nav_party')}</a>
+        <a href="#wiki">{t(strings, 'nav_wiki')}</a>
+        <a href="#tidslinje">{t(strings, 'nav_timeline')}</a>
+        <a href={wikiUrl(lang, 'Sessions')}>{t(strings, 'nav_sessions')}</a>
+        <a href={staticPageUrl(lang, 'chat.html')}>{t(strings, 'nav_chat')}</a>
 
-        <Button
-          variant="ghost"
-          size="sm"
+        <button
+          type="button"
+          className="topnav-btn"
           onClick={toggleTheme}
           aria-label="Toggle theme"
         >
           {theme === 'dark' ? t(strings, 'theme_day') : t(strings, 'theme_night')}
-        </Button>
-        <Button
-          variant="ghost"
-          size="sm"
+        </button>
+        <button
+          type="button"
+          className="topnav-btn"
           onClick={handleLangToggle}
           aria-label="Toggle language"
         >
           {t(strings, 'lang_toggle')}
-        </Button>
+        </button>
       </nav>
     </div>
   )

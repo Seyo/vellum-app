@@ -2,6 +2,23 @@
    Variable names are translated from Frostmaiden's --ink/--vellum/--rime palette to
    vellum-ds tokens (--color-foreground, --color-background, --color-secondary, etc.). */
 
+/* Hero grid: title left (1.2fr), status card right (0.9fr). Single column below 1024px.
+   Plain CSS @media because Tailwind v4 fails to wrap `lg:grid-cols-[1.2fr_0.9fr]` in a
+   media query for arbitrary track values. */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 56px;
+  align-items: center;
+}
+@media (min-width: 1024px) {
+  .hero-grid { grid-template-columns: 1.2fr 0.9fr; }
+}
+
+/* Centered hero map background image. Original used object-fit: cover with default
+   center positioning; explicit object-position: center keeps it stable across
+   browsers and avoids any inherited alignment from parent flex/grid. */
+
 /* ── Snow particles (60 spans, randomized in JS, animated by CSS) ── */
 .snow {
   position: absolute;
@@ -41,6 +58,7 @@
   width: 110%;
   height: 110%;
   object-fit: cover;
+  object-position: center center;
   filter: blur(1px) contrast(0.92) brightness(1.05) saturate(0.7);
   opacity: 0.42;
   mix-blend-mode: multiply;

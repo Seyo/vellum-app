@@ -36,7 +36,7 @@ export function WikiSectionsSection({ lang }: WikiSectionsSectionProps) {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-7 min-[640px]:grid-cols-2 min-[960px]:grid-cols-3">
+        <div className="wiki-grid">
           {sections?.map((s) => {
             const preview = s.items.slice(0, PREVIEW_LIMIT)
             const overflow = s.items.length - PREVIEW_LIMIT

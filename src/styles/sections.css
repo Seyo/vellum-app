@@ -1,0 +1,137 @@
+/* Plain CSS responsive grids for landing sections.
+   Tailwind v4 generates arbitrary-value variants like `lg:grid-cols-[1.2fr_0.9fr]`
+   without their @media wrapper AND places unprefixed grid-cols-N classes after the
+   responsive variants, breaking the cascade. Plain CSS @media gives reliable behavior. */
+
+/* ── Party grid (4 character cards) ── */
+.party-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+@media (min-width: 640px) {
+  .party-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1024px) {
+  .party-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* ── Wiki sections grid (6 wiki section cards) ── */
+.wiki-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+}
+@media (min-width: 640px) {
+  .wiki-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 960px) {
+  .wiki-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ── Section header block (chapter label + heading + description) ── */
+.section-head-block {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+.section-head-block p {
+  margin: 0;
+  color: var(--color-muted-foreground);
+  max-width: 44ch;
+  font-size: 1.05rem;
+}
+.section-head-block .section-chapter {
+  font-family: 'Cormorant Unicase', 'Cormorant Garamond', serif;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.32em;
+  color: var(--color-muted-foreground);
+}
+
+/* ── Top bar (brand + nav links + theme/lang toggles) ── */
+/* Mirrors the original .topbar / .topnav styling. Uses plain CSS so Tailwind v4
+   responsive classes don't get reordered by the cascade. */
+.topbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  padding: 28px 56px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+}
+.topbar .brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  letter-spacing: 0.08em;
+  color: var(--color-foreground);
+  text-decoration: none;
+}
+.topbar .brand-mark {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--color-foreground);
+  display: grid;
+  place-items: center;
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  background: rgba(232, 224, 207, 0.5);
+  flex-shrink: 0;
+}
+.dark .topbar .brand-mark { background: rgba(23, 30, 43, 0.5); }
+
+.topnav {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+  font-family: 'Cormorant Unicase', 'Cormorant Garamond', serif;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-size: 0.75rem;
+}
+.topnav a {
+  color: var(--color-muted-foreground);
+  text-decoration: none;
+  padding-bottom: 3px;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+  cursor: pointer;
+}
+.topnav a:hover {
+  color: var(--color-foreground);
+  border-bottom-color: var(--color-foreground);
+}
+
+.topnav-btn {
+  background: none;
+  border: 1px solid var(--color-border);
+  color: var(--color-muted-foreground);
+  font-family: 'Cormorant Unicase', 'Cormorant Garamond', serif;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-size: 0.7rem;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+  line-height: 1;
+}
+.topnav-btn:hover {
+  color: var(--color-foreground);
+  border-color: var(--color-foreground);
+}
+
+@media (max-width: 720px) {
+  .topbar { padding: 16px 24px; gap: 12px; }
+  .topbar .brand span { display: none; }
+  .topnav a { display: none; }
+}

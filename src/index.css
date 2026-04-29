@@ -6,6 +6,7 @@
 @import './styles/hero.css';
 @import './styles/map.css';
 @import './styles/timeline.css';
+@import './styles/sections.css';
 
 /* Section h2 — responsive clamp matches the original landing's section-head-block h2 */
 .section-h2 {
